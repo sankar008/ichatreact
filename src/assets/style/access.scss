@@ -1,0 +1,181 @@
+
+.text-divider {
+    color: #B5B5B5;
+    position: relative;
+}
+
+
+
+page-wrapper {
+    position: relative;
+    max-height: 100vh;
+    .headerDefault {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    body-main {
+        display: flex;
+        flex-wrap: wrap;
+        min-height: 100vh;
+        position: relative;
+        // background-color: #050214;
+        background-color: #0d0d0d;
+        .panLeft {
+            opacity: .8;
+            @media only screen and (min-width: 992px){
+                background: var(--bg-url) no-repeat center/cover;
+                border-radius: 0px 40px 40px 0px;
+            }
+            @media only screen and (max-width: 991px){
+                background: #e3e2e5 var(--bg-url) no-repeat center top/cover;
+                border-radius: 0px 0px 40px 40px;
+                min-height: 35vh;
+            }
+        }
+        .panRight {
+            @media only screen and (min-width: 992px){
+                padding: 10rem 2.5rem;
+            }
+            @media only screen and (max-width: 991px){
+                padding: 3rem 2.5rem;
+            }
+        }
+    }
+}
+
+
+.slidePan {
+    background: url('../img/login-bg.jpg') no-repeat center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .carouselWrapper {
+        max-width: 25rem;
+        padding: 1rem;
+        // background-color: #fff;
+        background-color: #3c3f46;
+        .carousel-login {
+            // background: linear-gradient(142.13deg, #FEF8FF 1.8%, #fef8ff 99.75%);
+            background: linear-gradient(142.13deg, #050214 1.8%, #353335 99.75%);
+            box-shadow: 0 0 8px 0 #00000042;
+            backdrop-filter: blur(75.2372px);
+            border-radius: 46.6321px;
+            padding: 2rem 3rem;
+            color: #fff;
+            & .swiper-slide:not(.swiper-slide-active) {
+                opacity: 0 !important;
+            }
+            img {
+                margin-bottom: 1rem;
+                padding: 1rem;
+                padding-top: 0;
+                filter: grayscale(1) contrast(0) brightness(1.5);
+            }
+            .swiper-pagination-bullet {
+                --swiper-theme-color: var(--kids-blue);
+                --swiper-pagination-bullet-inactive-color: #475E69;
+                --swiper-pagination-bullet-inactive-opacity: 1;
+            }
+        }
+    }
+}
+  
+
+.loginAlise {
+    text-align: center;
+    a img {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+
+.acType {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    gap: 2rem;
+    margin-top: 3.5rem;
+
+    .type-item {
+        flex: 0 0 100%;
+
+        a {
+            --bg-color-one: #131313;
+            --bg-color-two: #08070b;
+            // background: rgba(var(--adalt-blue-rgb), 15%);
+            /* background: #f5f9ff85; */
+            background: linear-gradient(135deg, var(--bg-color-one) 0%, var(--bg-color-two) 100%) #fff;
+            border: 1px solid transparent;
+            // box-shadow: 0px 4px 14px 1px rgba(0, 0, 0, 0.04);
+            box-shadow: -1px 4px 3px 0 #0000002b;
+            border-radius: 6px;
+            padding: 26px;
+            &:hover {
+                // border-color: #1565D8;
+                border-color: rgba(var(--bs-danger-rgb), .3);
+            }
+
+            img {
+                height: 69px;
+                width: 69px;
+                object-fit: contain;
+                margin-right: 1.5rem;
+                filter: contrast(0.5) brightness(3);
+            }
+            p {
+                color: #585858;
+            }
+            .icon-holder {
+                margin-left: auto;
+            }
+        }
+    }
+}
+
+
+.validateOpt {
+    --gap-otp: 0.5rem;
+    justify-content: space-between;
+    gap: var(--gap-otp);
+    input[type="tel"] {
+        flex: 0 0 calc((100% / 6) - var(--gap-otp));
+        margin: unset !important;
+        background: #ffffff5a;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        color: var(--bs-body-bg);
+        display: block;
+        width: 100%;
+        height: unset !important;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        @media only screen and (max-width: 375px){
+            & {
+                padding: 0.375rem 0.35rem;
+            }
+        }
+    }
+}
+.Toastify__toast-body {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    .Toastify__toast-icon svg {
+        width: 1.5em;
+        margin-right: .5em;
+    }
+}
+
+
+
+
+
+
+
+

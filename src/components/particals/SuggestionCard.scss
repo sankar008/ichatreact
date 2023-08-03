@@ -1,0 +1,28 @@
+
+.sugg-slider {
+    .sugg-card-item {
+        min-width: 15rem;
+        .card-body {
+            .wrapper {
+                text-align: center;
+                position: relative;
+                .btn-close {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 2rem;
+                    min-width: 2rem;
+                }
+                .user-avatar {
+                    margin: auto;
+                }
+                .space {
+                    height: 2rem;
+                }
+                .btn-follow {
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+.active-overlay {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #0000009e;
+    backdrop-filter: blur(1.1px);
+    z-index: 2;
+}
+.readyPost .share-something {
+    position: relative;
+    z-index: 3;
+}
+
+.userAvator .MuiBadge-badge {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    .imageUpload {
+        border: 5px solid #000;
+        font-size: 1.5rem;
+        padding: 8px;
+        border-radius: 50%;
+        background-color: #fff;
+        color: #1c1c1c;
+        cursor: pointer;
+    }
+}
+
+.profTabs .nav-item .nav-link {
+    --bs-nav-pills-link-active-bg: transparent;
+    --bs-nav-pills-link-active-color: var(--bs-white);
+    // color: #858584;
+    color: rgba( var(--bs-white-rgb), var(--active-state-opacity, 1) );
+    position: relative;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    &:after {
+        content: "";
+        width: 100%;
+        height: 0.15em;
+        background-color: transparent;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-radius: 50px 50px 0 0;
+        transition: all .2s ease-in-out;
+    }
+    & .MuiBadge-root {
+        padding: 0.1em 0.5em;
+        font: normal 0.9em var(--font-3);
+        background-color: rgba(133, 133, 132, var(--badge-active-state, 1));
+        border-radius: 50px;
+        color: #fff;
+    }
+    &:not(.active) {
+        --active-state-opacity: .5;
+        .MuiBadge-root {
+            --badge-active-state: 0.4;
+        }
+    }
+    &.active {
+        // color: var(--bs-nav-pills-link-active-color);
+        &:after {
+            background-color: currentColor;
+        }
+    }
+}
+
+.profile-post-list {
+    padding-inline: 32px,;
+    flex: 0 0 100%;
+    .list-inline-item {
+        position: relative;
+        button {
+            position: absolute;
+            font-size: 0.8em;
+            right: -1em;
+            top: -1em;
+            z-index: 5;
+            background-color: #00000070;
+            color: rgba(255, 255, 255, 0.54);
+            &:hover { 
+                color: rgba(255, 255, 255, 1) 
+            }
+        }
+        &:not(:last-child) {
+            margin-right: 1em;
+        }
+    }
+}

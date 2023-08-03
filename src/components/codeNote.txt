@@ -1,0 +1,61 @@
+
+
+/*------------Story-----------*/
+
+
+
+<div className="d-flex gap-2 mb-n3">
+                            <div className="position-relative">
+                                <div className="card border border-2 border-dashed h-150px px-4 px-sm-5 shadow-none d-flex align-items-center justify-content-center text-center">
+                                    <div>
+                                        <a className="stretched-link btn btn-light rounded-circle icon-md" href="#!">
+                                            <FaPlus />
+                                        </a>
+                                        <h6 className="mt-2 mb-0 small">Add Story</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="stories" className="storiesWrapper stories-square stories user-icon carousel scroll-enable stories user-icon carousel snapgram ">
+                                {feedList.map((fl) => 
+                                <div key={fl.id} className="story " data-id="user-1" data-photo={ fl.photo } data-last-updated="1687118471.136">
+                                    <Link className="item-link" to="#">
+                                        <span className="item-preview">
+                                            <img lazy="eager" src={ fl.photo } alt={ fl.name } height="32px" width="32px" />
+                                        </span>
+                                        <span className="info" itemProp="author" itemScope="" itemType="http://schema.org/Person">
+                                            <strong className="name" itemProp="name">{ fl.name }</strong>
+                                            <span className="time"></span>
+                                        </span>
+                                    </Link>
+
+                                    <ul className="items">
+                                        <li className="" data-id="user1-story1">
+                                            <a href={ imgFeed.userTwo } data-link="" data-linktext=""
+                                                data-time="1687118471.136" data-type="photo" data-length="5">
+                                                <img loading="auto" src={ imgFeed.userTwo } alt="" />
+                                            </a>
+                                        </li>
+                                        <li className="" data-id="user1-story2">
+                                            <a href={ imgFeed.userThree } data-link="" data-linktext=""
+                                                data-time="1687118471.136" data-type="video" data-length="">
+                                                <img loading="auto" src={ imgFeed.userThree } alt="" />
+                                            </a>
+                                        </li>
+                                        <li className="" data-id="user1-story3">
+                                            <a href={ imgFeed.userFour } data-link="https://webestica.com/"
+                                                data-linktext="Visit my Portfolio" data-time="1687118471.136" data-type="photo"
+                                                data-length="5">
+                                                <img loading="auto" src={ imgFeed.userFour } alt="" />
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                )}
+                                
+                                
+                            </div>
+
+                            
+                        </div>
