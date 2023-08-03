@@ -30,10 +30,12 @@ const Feed = () => {
     let [ isFocusPost, setIsFocusPost ] = useState(false);
     let [ suggestFriends, setSuggestfriends ] = useState([]);
     let [allPost, setAllPost] = useState([]);
+    let [allReques, setAllRequest] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => { 
-        getPost();          
+        getPost();   
+        friendRequest();       
         getSuggestFriend();
         document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
         autoResize();
@@ -49,6 +51,19 @@ const Feed = () => {
         if(res.data.success === 1){
            setSuggestfriends(res.data.data);
         }        
+    }
+
+    const friendRequest = async () => {
+        const header = localStorage.getItem("__tokenCode");       
+        const url = c.FREINDS + "/get-request/" + localStorage.getItem("__userId");
+        const res = await axios.get(url, {
+            headers: JSON.parse(header),
+        });
+        if(res.data.success === 1){
+            console.log(res.data.data);
+
+            setAllRequest(res.data.data);
+        } 
     }
     
     function autoResize() {
@@ -225,8 +240,8 @@ const Feed = () => {
                                         <div className="card bg-transparent border-0" style={{'--bs-card-bg': 'transparent !important'}}>
 
                                             <div className="card-header bg-transparent px-0 d-flex align-items-center justify-content-between">
-                                                <h5 className="card-title fs-6 mb-0">Suggestions for you</h5>
-                                                <Link className="link-light fs-6 link-underline-opacity-0">See All</Link>
+                                                <h5 className="card-title fs-6 mb-0">Friend Request</h5>
+                                                {/* <Link className="link-light fs-6 link-underline-opacity-0">See All</Link> */}
                                             </div>
 
 
@@ -244,11 +259,11 @@ const Feed = () => {
                                                     }}
                                                     >
                                                     {
-                                                        suggestFriends.map((friends, key)=>{
+                                                        allReques.map((requested, key)=>{
                                                             return (
                                                                 <ListItem className="px-0"
                                                                 secondaryAction={
-                                                                    <Button onClick={() => sendFriedRequest(friends.userCode)} variant="text" edge="end" sx={{textTransform: 'capitalize'}}>Follow</Button>
+                                                                    <Button onClick={() => sendFriedRequest(requested.userCode)} variant="text" edge="end" sx={{textTransform: 'capitalize'}}>Accept</Button>
                                                                 }
                                                                 key={key}
                                                             >
@@ -258,7 +273,7 @@ const Feed = () => {
                                                                 <ListItemText
                                                                     primary={
                                                                         <Typography className="" color="var(--bs-light-text-emphasis)">
-                                                                            {friends.firstName+' '+friends.lastName}
+                                                                            {requested.requester[0].firstName+' '+requested.requester[0].lastName}
                                                                         </Typography>
                                                                     }
                                                                     secondary={
