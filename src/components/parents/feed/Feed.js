@@ -37,7 +37,7 @@ const Feed = () => {
         getSuggestFriend();
         document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
         autoResize();
-    });
+    },[]);
 
 
     const getSuggestFriend = async () => {
@@ -147,208 +147,71 @@ const Feed = () => {
                         </div>
                         <div className="row">
                             <div className="col-12 ss">
-                            <Masonry className="feedHolder" columns={3} spacing={4}>     
-                                <Item>
-                                <Card className='text-bg-dark onlyimg'>
-                                    <Link>
-                                        <CardMedia
-                                                component="img"
-                                                image="http://api.ichat.apibag.in/images/post/1690483384915.png"
-                                                alt=""
-                                        />
-                                    </Link>
-                                    <List
-                                                className="suggListUser"
-                                                sx={{
-                                                    width: '100%',
-                                                    bgcolor: 'transparent',
-                                                    border: 'none',
-                                                    borderColor: 'primary.main',
-                                                    borderRadius: 1,
-                                                }}
-                                            >
-                                                <ListItem 
-                                                    className=""
-                                                    secondaryAction={
-                                                        <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp;<FaStar size="22" /> </Button>
-                                                    }
-                                                    sx={{ px: 0 }}
-                                                >
-                                                    <ListItemAvatar>
-                                                        <Avatar src="http://api.ichat.apibag.in/images/post/1690483384915.png" />
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        primary={
-                                                            <Typography className="" color="var(--bs-light-text-emphasis)">
-                                                                Sankar Bera
-                                                            </Typography>
-                                                        }
-                                                        secondary={
-                                                            <Typography component="span" variant="body2" color="var(--bs-gray-300)">
-                                                                19 hour ago 
-                                                            </Typography>
-                                                        }
-                                                    />
-                                                </ListItem>
-                                            </List>
-                                </Card>
-                                </Item>
-                                <Item>
-                                <Card className='text-bg-dark onlytxt'>
-                                    <Link>
-                                        <h4>On Text Heading</h4>
-                                    </Link>
-                                    <List
-                                                className="suggListUser"
-                                                sx={{
-                                                    width: '100%',
-                                                    bgcolor: 'transparent',
-                                                    border: 'none',
-                                                    borderColor: 'primary.main',
-                                                    borderRadius: 1,
-                                                }}
-                                            >
-                                                <ListItem 
-                                                    className=""
-                                                    secondaryAction={
-                                                        <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp;<FaStar size="22" /> </Button>
-                                                    }
-                                                    sx={{ px: 0 }}
-                                                >
-                                                    <ListItemAvatar>
-                                                        <Avatar src="http://api.ichat.apibag.in/images/post/1690483384915.png" />
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        primary={
-                                                            <Typography className="" color="var(--bs-light-text-emphasis)">
-                                                                Sankar Bera
-                                                            </Typography>
-                                                        }
-                                                        secondary={
-                                                            <Typography component="span" variant="body2" color="var(--bs-gray-300)">
-                                                                19 hour ago 
-                                                            </Typography>
-                                                        }
-                                                    />
-                                                </ListItem>
-                                            </List>
-                                </Card>
-                                </Item>
-
-                                <Item>
-                                <Card className='text-bg-dark imgtxtboth'>
-                                    <Link>
-                                    <Box sx={{ position: 'relative' }}>
-                                        <CardMedia
-                                                component="img"
-                                                image="http://api.ichat.apibag.in/images/post/1690483384915.png"
-                                                alt=""
-                                        />
-                                        <Box
+                            <Masonry className="feedHolder" columns={3} spacing={4}>
+                            { allPost.map((stry, key) => (     
+                                      
+                                <Item key={key}>
+                                    <Card className='text-bg-dark imgtxtboth'>
+                                        <Link state={{postCode:stry.postCode}} to= {"/parent/feed-post"}>
+                                            <Box sx={{ position: 'relative' }}>
+                                                <CardMedia
+                                                        component="img"
+                                                        image={stry.image.length > 0 ?c.IMG+stry.image[0]:imgFeed.postSlider.img3}
+                                                        alt={stry.image.length}
+                                                />
+                                                <Box
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        bottom: 0,
+                                                        left: 0,
+                                                        width: '100%',
+                                                        bgcolor: 'rgba(0, 0, 0, 0.54)',
+                                                        color: 'white',
+                                                        padding: '10px',
+                                                    }}
+                                                    >
+                                                    <Typography variant="h7">{stry.details.substring(0, 120)}</Typography>
+                                                    </Box>
+                                            </Box>                                        
+                                        </Link>
+                                        <List
+                                            className="suggListUser"
                                             sx={{
-                                                position: 'absolute',
-                                                bottom: 0,
-                                                left: 0,
                                                 width: '100%',
-                                                bgcolor: 'rgba(0, 0, 0, 0.54)',
-                                                color: 'white',
-                                                padding: '10px',
+                                                bgcolor: 'transparent',
+                                                border: 'none',
+                                                borderColor: 'primary.main',
+                                                borderRadius: 1,
                                             }}
                                             >
-                                            <Typography variant="h5">Text heading</Typography>
-                                            <Typography variant="body2">Subtitle</Typography>
-                                            </Box>
-                                    </Box>
-                                        
-                                    </Link>
-                                    <List
-                                                className="suggListUser"
-                                                sx={{
-                                                    width: '100%',
-                                                    bgcolor: 'transparent',
-                                                    border: 'none',
-                                                    borderColor: 'primary.main',
-                                                    borderRadius: 1,
-                                                }}
+                                            <ListItem 
+                                                className=""
+                                                secondaryAction={
+                                                <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp;<FaStar size="22" /> </Button>
+                                                }
+                                                sx={{ px: 0 }}
                                             >
-                                                <ListItem 
-                                                    className=""
-                                                    secondaryAction={
-                                                        <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp;<FaStar size="22" /> </Button>
-                                                    }
-                                                    sx={{ px: 0 }}
-                                                >
-                                                    <ListItemAvatar>
-                                                        <Avatar src="http://api.ichat.apibag.in/images/post/1690483384915.png" />
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        primary={
-                                                            <Typography className="" color="var(--bs-light-text-emphasis)">
+                                            <ListItemAvatar>
+                                                <Avatar src="http://api.ichat.apibag.in/images/post/1690483384915.png" />
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={
+                                                    <Typography className="" color="var(--bs-light-text-emphasis)">
                                                                 Sankar Bera
-                                                            </Typography>
-                                                        }
-                                                        secondary={
-                                                            <Typography component="span" variant="body2" color="var(--bs-gray-300)">
-                                                                19 hour ago 
-                                                            </Typography>
-                                                        }
-                                                    />
-                                                </ListItem>
-                                            </List>
-                                </Card>
-                                </Item>
-
-                                { allPost.map((stry, key) => (
-
-                                    
-                                    <Item key={key} sx={{ }}>
-                                        <Card className='text-bg-dark'>
-                                            <Link to= {"/parent/feed-post/"+stry.postCode}>
-                                            { stry.image.length?<CardMedia
-                                                  component="img"
-                                                  image={ c.IMG+stry.image[0] }
-                                                  alt={ stry.postBy.firstName }
-                                              />:''}
-                                            </Link>
-                                            <List
-                                                className="suggListUser"
-                                                sx={{
-                                                    width: '100%',
-                                                    bgcolor: 'transparent',
-                                                    border: 'none',
-                                                    borderColor: 'primary.main',
-                                                    borderRadius: 1,
-                                                }}
-                                            >
-                                                <ListItem 
-                                                    className=""
-                                                    secondaryAction={
-                                                        <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp; { stry.mark_state? <FaStar size="22" />:<FaRegStar size="22" /> }</Button>
+                                                    </Typography>
                                                     }
-                                                    sx={{ px: 0 }}
-                                                >
-                                                    <ListItemAvatar>
-                                                        <Avatar src={ c.IMG+stry.postBy.image } />
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        primary={
-                                                            <Typography className="" color="var(--bs-light-text-emphasis)">
-                                                                { stry.postBy.firstName+' '+stry.postBy.lastName }
-                                                            </Typography>
-                                                        }
-                                                        secondary={
-                                                            <Typography component="span" variant="body2" color="var(--bs-gray-300)">
+                                                    secondary={
+                                                        <Typography component="span" variant="body2" color="var(--bs-gray-300)">
                                                                 19 hour ago 
-                                                            </Typography>
-                                                        }
+                                                        </Typography>
+                                                    }
                                                     />
-                                                </ListItem>
-                                            </List>
-                                        </Card>
-                                    </Item>
-                                )) }
+                                            </ListItem>
+                                        </List>
+                                    </Card>
+                                </Item>
                                 
-                               
+                            )) }
                             </Masonry>                           
                             </div>
                         </div>

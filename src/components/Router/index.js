@@ -35,7 +35,7 @@ const BasicRoutes = () => {
 
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/parent/feed" element={<ParentFeed />} />
-          <Route exact path="/parent/feed-post/:postCode" element={<ParentFeedPost />} />
+          <Route exact path="/parent/feed-post" element={<ParentFeedPost />} />
           <Route exact path="/kids/feed" element={<KidsFeed />} />
           <Route path="*" element={<Page404 />} />
         </Routes>     

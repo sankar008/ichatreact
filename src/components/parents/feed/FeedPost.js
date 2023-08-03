@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import { toast } from "react-toastify";
 import Sidebar from '../../particals/sudebar'
@@ -56,28 +56,19 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const FeedPost = () => {
-  
+     const location = useLocation()
     let [ isFocusPost, setIsFocusPost ] = useState(false);
     let [ suggestFriends, setSuggestfriends ] = useState([]);
+    let [ postId, setPostId ] = useState(location.state.postCode);
 
 
     useEffect(() => {           
-        getSuggestFriend();
         document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
         autoResize();
     }, []);
 
 
-    const getSuggestFriend = async () => {
-        const header = localStorage.getItem("__tokenCode");       
-        const url = c.FREINDS + "/suggest-friend/" + localStorage.getItem("__userId");
-        const res = await axios.get(url, {
-            headers: JSON.parse(header),
-        });
-        if(res.data.success == 1){
-           setSuggestfriends(res.data.data);
-        }        
-    }
+   
     
     function autoResize() {
         document.querySelectorAll('[data-autoresize]').forEach(function (element) {
@@ -120,32 +111,7 @@ const FeedPost = () => {
         setChecked(newChecked);
     };
 
-    const sendFriedRequest = async (recipient) => {         
-        const header = localStorage.getItem("__tokenCode");       
-        const url = c.FREINDS;
-        const data = {
-            recipient: recipient,
-            requester: localStorage.getItem("__userId")
-        };
-        const res = await axios.post(url, data, {
-            headers: JSON.parse(header),
-        });
-
-        if(res.data.success == 1){
-            toast("Request sent successfully!!", {
-                position: "top-right",
-                autoClose: 5000,
-                type: "success",
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-            getSuggestFriend();
-        }  
-    }
+   
     
   return (
     JSON.parse(localStorage.getItem("isLoginCheck"))?
