@@ -405,7 +405,7 @@ const timestamp = function () {
     let random = Math.floor(Math.random() * 1000);
   
     return Math.round(timeIndex - random);
-  };
+};
   
 
 let stories = [

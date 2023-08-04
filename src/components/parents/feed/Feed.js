@@ -30,11 +30,12 @@ const Feed = () => {
     let [ isFocusPost, setIsFocusPost ] = useState(false);
     let [ suggestFriends, setSuggestfriends ] = useState([]);
     let [allPost, setAllPost] = useState([]);
-    let [allReques, setAllRequest] = useState([]);
+    let [allRequest, setAllRequest] = useState([]);
+    
     const navigate = useNavigate();
 
     useEffect(() => { 
-        getPost();   
+        getPost();  
         friendRequest();       
         getSuggestFriend();
         document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
@@ -94,6 +95,32 @@ const Feed = () => {
     }, [isFocusPost]);
 
    
+    const acceptRequest = async (friendCode) => {      
+        const header = localStorage.getItem("__tokenCode");       
+        const url = c.FREINDS+'/accept';
+        const data = {
+            friendCode: friendCode
+        };
+
+        const res = await axios.post(url, data, {
+            headers: JSON.parse(header),
+        });
+
+        if(res.data.success === 1){
+            toast("Request accepted successfully!!", {
+                position: "top-right",
+                autoClose: 5000,
+                type: "success",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            friendRequest();
+        }
+    }
 
     const sendFriedRequest = async (recipient) => {         
         const header = localStorage.getItem("__tokenCode");       
@@ -138,6 +165,8 @@ const Feed = () => {
         navigate("/account-type");
       }
     }
+
+  
     
   return (
     JSON.parse(localStorage.getItem("isLoginCheck"))?
@@ -237,21 +266,17 @@ const Feed = () => {
                       <div className="row g-4">
 
                                     <div className="col-12">
-                                        <div className="card bg-transparent border-0" style={{'--bs-card-bg': 'transparent !important'}}>
-
+                                        {allRequest.length != 0?<div className="card bg-transparent border-0" style={{'--bs-card-bg': 'transparent !important'}}>
                                             <div className="card-header bg-transparent px-0 d-flex align-items-center justify-content-between">
                                                 <h5 className="card-title fs-6 mb-0">Friend Request</h5>
                                                 {/* <Link className="link-light fs-6 link-underline-opacity-0">See All</Link> */}
                                             </div>
-
-
                                             <div className="card-body p-0">
 
                                                 <List
                                                     className="suggListUser"
                                                     sx={{
                                                         width: '100%',
-                                                        // maxWidth: 360,
                                                         bgcolor: 'transparent',
                                                         border: 'none',
                                                         borderColor: 'primary.main',
@@ -259,11 +284,11 @@ const Feed = () => {
                                                     }}
                                                     >
                                                     {
-                                                        allReques.map((requested, key)=>{
+                                                        allRequest.map((requested, key)=>{
                                                             return (
                                                                 <ListItem className="px-0"
                                                                 secondaryAction={
-                                                                    <Button onClick={() => sendFriedRequest(requested.userCode)} variant="text" edge="end" sx={{textTransform: 'capitalize'}}>Accept</Button>
+                                                                    <Button onClick={() => acceptRequest(requested.friendCode)} variant="text" edge="end" sx={{textTransform: 'capitalize'}}>Accept</Button>
                                                                 }
                                                                 key={key}
                                                             >
@@ -289,9 +314,10 @@ const Feed = () => {
                                                 
                                                 </List>
                                             </div>
-                                        </div>
+                                        </div>:''}
+                                        
 
-                                        <div className="card bg-transparent border-0 mt-3 pt-3 right_bar_top_brdr" style={{'--bs-card-bg': 'transparent !important'}}>
+                                        <div className="card bg-transparent border-0 mt-3 pt-3 {allRequest.length != 0?right_bar_top_brdr:'' } " style={{'--bs-card-bg': 'transparent !important'}}>
 
                                             <div className="card-header bg-transparent px-0 d-flex align-items-center justify-content-between">
                                                 <h5 className="card-title fs-6 mb-0">Suggestions for you</h5>

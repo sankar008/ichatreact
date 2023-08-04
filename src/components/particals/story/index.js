@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Story from './Story'
 import { usersImg } from '../../../assets/img/ImgLib'
@@ -10,7 +10,8 @@ import { useSpring, animated } from '@react-spring/web';
 import PropTypes from 'prop-types';
 import Backdrop from '@mui/material/Backdrop';
 import { IoMdClose } from 'react-icons/io';
-
+import axios from "axios";
+import * as c from "../../../api/constant";
 
 
 const darkTheme = createTheme({
@@ -91,6 +92,39 @@ const Index = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    let [allStory, setAllStory] = useState([]);
+
+
+    const getStory = async () => {
+      const header = localStorage.getItem("__tokenCode");  
+      const userCode = localStorage.getItem("__userId");    
+      const url = c.STORY+'/user/'+userCode;
+      const res = await axios.get(url, {
+        headers: JSON.parse(header),
+      });
+
+      if(res.data.success === 1){
+        setAllStory(res.data.data);
+      }
+        
+    }
+
+    // const imageHandelar = async (e) => {
+    //   const file = e.target.files[0]; 
+    //   if(file){
+    //     const fileReader = new FileReader();
+    //     fileReader.addEventListener("load", () => {
+    //       imageData.push(fileReader.result)
+    //       setImagedata(imageData)
+    //       setImagearray(fileReader.result);
+    //     });
+    //     fileReader.readAsDataURL(file);   
+    //   } 
+    // };
+
+    useEffect(() => { 
+      getStory(); 
+    },[]);
 
     
   return (
@@ -137,45 +171,6 @@ const Index = () => {
                   <Button className="mt-4" variant="contained">Submit</Button>
                 </div>
             </form>
-            
-            {/* <Grid container spacing={2} sx={{ width: 'calc(100% + 32px)' }}>
-                <Grid item xs={12} sx={{ borderBottom: '1px solid #3c3c3c' }}>
-                  <ThemeProvider theme={darkTheme}>
-                    <Button sx={{ position: 'absolute', right: '.5em', top: '10px' }} onClick={handleClose}><IoMdClose size="20" /> {window.innerWidth < 900 ? '':(<>&nbsp; Close</>)}</Button>
-                    <Typography id="spring-modal-title" className='mb-2' variant="h6" component="h2">
-                        Make your Story
-                    </Typography>
-                  </ThemeProvider>
-                </Grid>
-            </Grid> */}
-              
-              {/* <Typography id="spring-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </Typography> */}
-
-              {/* <form className="row g-3">
-                  <div className="col-md-6">
-                      <label htmlFor="inputEmail4" className="form-label">Email</label>
-                      <input type="email" className="form-control" id="inputEmail4" />
-                  </div>
-                  <div className="col-md-6">
-                      <label htmlFor="inputPassword4" className="form-label">Password</label>
-                      <input type="password" className="form-control" id="inputPassword4" />
-                  </div>
-                  <div className="col-12">
-                      <label htmlFor="inputAddress" className="form-label">Address</label>
-                      <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St" />
-                  </div>
-                  <div className="col-12">
-                      <label htmlFor="inputAddress2" className="form-label">Address 2</label>
-                      <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
-                  </div>
-                  <div className="col-md-6">
-                      <label htmlFor="inputCity" className="form-label">City</label>
-                      <input type="text" className="form-control" id="inputCity" />
-                  </div>
-                  <Button className="mt-4" variant="contained">Submit</Button>
-              </form> */}
           </Box>
         </Fade>
     </Modal>
@@ -201,26 +196,16 @@ const Index = () => {
                 display: 'flex'
             }}
             >
-            <Story 
-                userName="Samera"
-                storyImg={ usersImg.u1 }
-                userStatus="active"
-            />
-            <Story 
-                userName="Julien"
-                storyImg={ usersImg.u2 }
-                userStatus="inactive"
-            />
-            <Story 
-                userName="Mariane"
-                storyImg={ usersImg.u3 }
-                userStatus="inactive"
-            />
-            <Story 
-                userName="Rayan Jonson"
-                storyImg={ usersImg.u4 }
-                userStatus="active"
-            />
+              
+            {allStory.map((story, index) => {
+              return <Story 
+              userName="Samera"
+              storyImg={ usersImg.u1 }
+              userStatus="active"
+          />
+            })}
+            
+
         </List>
     </div>
     </>

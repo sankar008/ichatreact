@@ -61,6 +61,7 @@ const LoginParent = () => {
             localStorage.setItem("isLoginCheck", true);
             localStorage.setItem("__fulName", response.data.data.full_name);
             localStorage.setItem("__userId", response.data.data.userCode);
+            localStorage.setItem("__userRole", response.data.data.role);
             const headerObj = {
               Authorization: `Bearer ${response.data.token_code}`,
             };
