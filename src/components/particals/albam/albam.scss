@@ -13,3 +13,24 @@
         }
     }
 }
+.change_display_photo {
+	display: flex !important;
+	flex-wrap: wrap;
+    gap: unset !important;
+}
+.change_display_photo li {
+	width: 25%;
+	margin: 0 !important;
+}
+
+@media only screen and (max-width: 1024px) {
+    .change_display_photo li {
+        width: 50%;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .change_display_photo li {
+        width: 100%;
+    }
+  }

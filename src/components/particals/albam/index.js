@@ -516,6 +516,7 @@ const Index = () => {
       />
 
     <ImageList
+    className='change_display_photo'
         sx={{}}
         variant="quilted"
         cols={6}

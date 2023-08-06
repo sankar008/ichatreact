@@ -159,8 +159,18 @@ const Index = () => {
 
                  <div className='img_upp'>
                   <img className='img-fluid post_img' src="https://t4.ftcdn.net/jpg/03/49/67/51/360_F_349675175_15Vt8KbDteudLLSAItlOEsuE818e0Fcr.jpg" alt="" />
-                    <Link className='upload_link'><img className='img-fluid iconup' src={require('../../../assets/img/upload_icon.png')} alt="" /></Link>
-                  
+                    
+                    <input
+                        type="file"
+                        id="imageUpload"
+                        accept=".png, .jpg, .jpeg"
+                        hidden
+                      />
+                      <label className="imageUpload upload_link" htmlFor="imageUpload">
+                        <img className='img-fluid iconup' src={require('../../../assets/img/upload_icon.png')} alt="" />
+                      </label>
+
+
                   </div>
                   
                 </div>

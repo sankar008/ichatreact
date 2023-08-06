@@ -1,0 +1,110 @@
+body {
+  background: #050214;
+}
+.left-panel {
+  min-height: 100vh;
+  border-right: 1px solid #707070;
+  max-width:128px;
+  min-width: 128px;
+  text-align: center;
+  padding: 20px 15px;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #050214;
+  .admin-logo {
+    margin-bottom: 70px;
+    display: block;
+  }
+  .left-bar {
+    margin-top: 70px;
+    a {
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style-type: none;
+      margin-bottom: 12px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      a {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        background: #222;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+      }
+    }
+  }
+}
+.right-content {
+  max-width: calc(100% - 128px);
+  margin-left: auto;
+  padding: 56px 24px;
+  min-height: 100vh;
+  .chat-box {
+    max-width: 375px;
+    flex-basis: 375px;
+  }
+  .message-box {
+    padding: 15px;
+    max-width:calc(100% - 375px);
+    flex-basis: calc(100% - 375px);
+    text-align: center;
+    h3 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 34px;
+      color: #D1D1D1;
+      margin-bottom: 0;
+    }
+    p {
+      color: #969696;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 34px;
+      margin-bottom: 28px;
+    }
+    .btn {
+      min-width: 203px;
+      border-radius: 16px 16px 0px 16px;
+      padding: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      font-size: 17px;
+      font-weight: 500;
+      background: #DB0011;
+      box-shadow: 0px 4px 26px 0px rgba(0, 0, 0, 0.25);
+      max-width: 203px;
+      margin: auto;
+    }
+    .chat-logo {
+      width: 138px;
+      height: 138px;
+      border-radius: 100%;
+      background: rgba(34, 34, 34, 0.51);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 21px;
+    }
+  }
+}

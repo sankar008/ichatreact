@@ -7,7 +7,8 @@ import './feed.scss'
 import * as imgFeed from '../../../assets/img/ImgLib'
 import AccountType from "../../../components/AccountType";
 
-import { Avatar, Button, Paper, List, ListItem, ListItemAvatar, ListItemText, Typography, CardMedia,Box } from '@mui/material'
+import { Avatar, Button, Paper, List, ListItem, ListItemAvatar, ListItemText, Typography, CardMedia,Box,Input } from '@mui/material'
+
 import 'swiper/scss';
 import 'swiper/scss/pagination';
 import 'swiper/scss/navigation';

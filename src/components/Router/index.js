@@ -17,6 +17,7 @@ import KidsFeed from "../kids/feed/Feed";
 import Page404 from "../Page404";
 import ParentsForgotPassword from "../parents/ForgotPassword.js"
 import KidsForgotPassword from "../kids/ForgotPassword.js"
+import ChatView from "../parents/chat/ChatView";
 
 const BasicRoutes = () => {
   return (
@@ -38,6 +39,7 @@ const BasicRoutes = () => {
           <Route exact path="/parent/feed-post" element={<ParentFeedPost />} />
           <Route exact path="/kids/feed" element={<KidsFeed />} />
           <Route path="*" element={<Page404 />} />
+          <Route exact path="/chat" element={<ChatView />} />
         </Routes>     
     </Router>
   );
