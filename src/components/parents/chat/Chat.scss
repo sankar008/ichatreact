@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap');
+
 body {
   background: #050214;
 }
 .left-panel {
-  min-height: 100vh;
+  height: 100vh;
   border-right: 1px solid #707070;
   max-width:128px;
   min-width: 128px;
@@ -14,6 +16,10 @@ body {
   top: 0;
   bottom: 0;
   background: #050214;
+  @media only screen and (max-width: 991px) {
+    max-width:100px;
+    min-width: 100px;
+  }
   .admin-logo {
     margin-bottom: 70px;
     display: block;
@@ -56,23 +62,38 @@ body {
 .right-content {
   max-width: calc(100% - 128px);
   margin-left: auto;
-  padding: 56px 24px;
-  min-height: 100vh;
+  @media only screen and (max-width: 991px) {
+    max-width: calc(100% - 100px);
+  }
   .chat-box {
     max-width: 375px;
     flex-basis: 375px;
+    padding: 35px 0 0 24px;
+    @media only screen and (max-width: 991px) {
+      max-width: 320px;
+      flex-basis: 320px;
+    }
   }
   .message-box {
     padding: 15px;
     max-width:calc(100% - 375px);
     flex-basis: calc(100% - 375px);
     text-align: center;
+    height: 100vh;
+    @media only screen and (max-width: 991px) {
+      max-width:calc(100% - 320px);
+      flex-basis: calc(100% - 320px);
+    }
     h3 {
       font-size: 28px;
       font-weight: 700;
       line-height: 34px;
       color: #D1D1D1;
       margin-bottom: 0;
+      font-family: 'Inter', sans-serif;
+      @media only screen and (max-width: 991px) {
+        font-size: 22px;
+      }
     }
     p {
       color: #969696;
@@ -80,6 +101,15 @@ body {
       font-weight: 300;
       line-height: 34px;
       margin-bottom: 28px;
+      font-family: "Inter", sans-serif;
+      @media only screen and (max-width: 991px) {
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: 18px;
+        max-width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
     .btn {
       min-width: 203px;
@@ -95,6 +125,12 @@ body {
       box-shadow: 0px 4px 26px 0px rgba(0, 0, 0, 0.25);
       max-width: 203px;
       margin: auto;
+      @media only screen and (max-width: 991px) {
+        font-size: 15px;
+        padding: 10px;
+        min-width: 180px;
+        max-width: 180px;
+      }
     }
     .chat-logo {
       width: 138px;
@@ -105,6 +141,156 @@ body {
       align-items: center;
       justify-content: center;
       margin: 0 auto 21px;
+      @media only screen and (max-width: 991px) {
+        width: 110px;
+        height: 110px;
+        margin: 0 auto 15px;
+      }
     }
   }
+}
+.chat-box-top {
+  margin-bottom: 36px;
+  @media only screen and (max-width: 991px) {
+    margin-bottom: 20px;
+  }
+}
+.chat-box-left {
+    .chat-box-pic {
+      max-width: 56px;
+      flex-basis: 56px;
+      line-height: 1;
+      span {
+        display: inline-block;
+        width: 56px;
+        height: 56px;
+        border-radius: 100%;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    .chat-box-txt {
+      padding-left: 18px;
+      max-width: calc(100% - 56px);
+      flex-basis: calc(100% - 56px);
+      h6 {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
+        color: #fff;
+        margin-bottom: 0;
+        font-family: 'Roboto', sans-serif;
+      }
+      p {
+        color: #8E8E8E;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+        font-family: 'Roboto', sans-serif;
+        margin-bottom: 0;
+      }
+    }
+}
+.chat-box-btm {
+  h3 {
+    font-size: 24px;
+    color: #D1D1D1;
+    font-weight: 700;
+    line-height: 34px;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 16px;
+    @media only screen and (max-width: 991px) {
+      font-size: 20px;
+    }
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+    @media only screen and (max-width: 991px) {
+      height: calc(100vh - 170px);
+    }
+    li {
+      list-style-type: none;
+      border-bottom: 1px solid #131313;
+      &:last-child {
+        border-bottom: 0;
+      }
+      a {
+        text-decoration: none;
+        padding: 20px;
+        display: block;
+        @media only screen and (max-width: 991px) {
+          padding: 14px;
+        }
+      }
+    }
+  }
+}
+.user-box {
+  position: relative;
+  .user-active {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: #58E866;
+    border-radius: 100%;
+  }
+    .user-box-left {
+      max-width: 58px;
+      flex-basis: 58px;
+      line-height: 1;
+      span {
+        width: 58px;
+        height: 58px;
+        border-radius: 100%;
+        overflow: hidden;
+        display: inline-block;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    .user-box-right {
+      max-width: calc(100% - 58px);
+      flex-basis: calc(100% - 58px);
+      padding-left: 12px;
+      h4 {
+        font-size: 20px;
+        color: #D1D1D1;
+        font-weight: 600;
+        line-height: 24px;
+        margin-bottom: 4px;
+        font-family: "Inter", sans-serif;
+        @media only screen and (max-width: 991px) {
+          font-size: 17px;
+        }
+      }
+      p {
+        font-size: 16px;
+        color: #969696;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: -0.408px;
+        margin-bottom: 0;
+        font-family: "Inter", sans-serif;
+        @media only screen and (max-width: 991px) {
+          font-size: 14px;
+          line-height: 18px;
+        }
+        span {
+          color: #4F4F4F;
+        }
+      }
+    }
 }
