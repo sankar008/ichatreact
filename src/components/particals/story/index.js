@@ -84,16 +84,19 @@ const Fade = React.forwardRef(function Fade(props, ref) {
     },
   });
   
-  
+  const initialPostvalue = {
+    details: "",
+    image: ""
+  };
   
 
 const Index = () => {
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     let [allStory, setAllStory] = useState([]);
-
+    let [imageData, setImageData] = useState(usersImg.imgProfileU);
+    const [formData, setformData] = React.useState(initialPostvalue);
 
     const getStory = async () => {
       const header = localStorage.getItem("__tokenCode");  
@@ -109,24 +112,26 @@ const Index = () => {
         
     }
 
-    // const imageHandelar = async (e) => {
-    //   const file = e.target.files[0]; 
-    //   if(file){
-    //     const fileReader = new FileReader();
-    //     fileReader.addEventListener("load", () => {
-    //       imageData.push(fileReader.result)
-    //       setImagedata(imageData)
-    //       setImagearray(fileReader.result);
-    //     });
-    //     fileReader.readAsDataURL(file);   
-    //   } 
-    // };
+    const imageHandelar = async (e) => {
+      const file = e.target.files[0];     
+      if(file){
+        const fileReader = new FileReader();
+        fileReader.addEventListener("load", () => {
+          setImageData(fileReader.result)
+        });
+        fileReader.readAsDataURL(file);   
+      } 
+    };
+
+    const handalerChanges = async (e) => {     
+      const { name, value } = e.target;
+      setformData({ ...formData, [name]: value });
+    }
 
     useEffect(() => { 
       getStory(); 
     },[]);
 
-    
   return (
     <>
     <Modal
@@ -158,24 +163,22 @@ const Index = () => {
                 <div className="col-md-12 mt-20 image_upld">
 
                  <div className='img_upp'>
-                  <img className='img-fluid post_img' src="https://t4.ftcdn.net/jpg/03/49/67/51/360_F_349675175_15Vt8KbDteudLLSAItlOEsuE818e0Fcr.jpg" alt="" />
+                  <img className='img-fluid post_img' src={imageData} alt="" />
                     
                     <input
                         type="file"
                         id="imageUpload"
+                        onChange={imageHandelar}
                         accept=".png, .jpg, .jpeg"
                         hidden
-                      />
+                    />
                       <label className="imageUpload upload_link" htmlFor="imageUpload">
                         <img className='img-fluid iconup' src={require('../../../assets/img/upload_icon.png')} alt="" />
                       </label>
-
-
-                  </div>
-                  
+                  </div>                  
                 </div>
                 <div className="col-md-12">
-                  <textarea className="" placeholder='Write Your Story'></textarea>
+                  <textarea className="" name="details" id="details" placeholder='Write Your Story' onChange={handalerChanges}></textarea>
                 </div>
                 <div className="col-md-12 text-center">
                   <Button className="mt-4" variant="contained">Submit</Button>

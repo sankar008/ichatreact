@@ -5,7 +5,7 @@ import BasicRoutes from "./components/Router/index";
 function App() {
   return (
     <>
-      <ToastContainer/>
+    <ToastContainer/>
     <BasicRoutes />
     </>
   );
