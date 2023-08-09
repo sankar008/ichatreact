@@ -56,10 +56,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const FeedPost = () => {
-     const location = useLocation()
+    const location = useLocation()
     let [ isFocusPost, setIsFocusPost ] = useState(false);
     let [ suggestFriends, setSuggestfriends ] = useState([]);
-    let [ postId, setPostId ] = useState(location.state.postCode);
+    let [ postCode, setPostCode ] = useState(location.state.postCode);
 
 
     useEffect(() => {           
@@ -111,7 +111,7 @@ const FeedPost = () => {
         setChecked(newChecked);
     };
 
-   
+  
     
   return (
     JSON.parse(localStorage.getItem("isLoginCheck"))?

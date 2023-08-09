@@ -65,6 +65,7 @@ const Feed = () => {
     
         let seconds = date1.diff(date2, 'seconds');   
     
+        
         if(years){
             return years+ " years ago";
         }else if(months){
@@ -204,23 +205,29 @@ const Feed = () => {
       }
     }
 
-    const likePost = async (postCode) => {
-      
-
+    const likePost = async (postCode) => {     
         const header = localStorage.getItem("__tokenCode");  
-        const userCode = localStorage.getItem("__userId");   
-        
-        const url = c.POST+'/like/'+userCode+"/"+postCode;
-       
+        const userCode = localStorage.getItem("__userId");  
+        const url = c.POST+'/like/'+userCode+"/"+postCode;       
         const res = await axios.get(url, {
             headers: JSON.parse(header),
         });
-
-        console.log(res);
-
+        if(res.data.success == 1){
+            getPost();
+        }
     }
 
-     
+    const dislikePost = async (postCode) => {
+        const header = localStorage.getItem("__tokenCode");  
+        const userCode = localStorage.getItem("__userId");
+        const url = c.POST+'/dislike/'+userCode+"/"+postCode;
+        const res = await axios.get(url, {
+            headers: JSON.parse(header),
+        });
+        if(res.data.success == 1){
+            getPost();
+        }
+    }   
 
   
     
@@ -286,12 +293,12 @@ const Feed = () => {
                                             <ListItem 
                                                 className=""
                                                 secondaryAction={
-                                                <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>{stry.likeCount} &nbsp;<FaStar onClick={()=>likePost(stry.postCode)} size="22" color={stry.like.includes(stry.userCode)?'gold':'white'}/> </Button>
+                                                <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>{stry.likeCount} &nbsp;<FaStar onClick={()=>stry.like.includes(localStorage.getItem("__userId"))?dislikePost(stry.postCode):likePost(stry.postCode)} size="22" color={stry.like.includes(localStorage.getItem("__userId"))?'gold':'white'}/> </Button>
                                                 }
                                                 sx={{ px: 0 }}
                                             >
                                             <ListItemAvatar>
-                                                <Avatar src={c.IMG+stry.postBy.image} />
+                                            <Avatar src={c.IMG+stry.postBy.image} />
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={
@@ -301,7 +308,7 @@ const Feed = () => {
                                                     }
                                                     secondary={
                                                         <Typography component="span" variant="body2" color="var(--bs-gray-300)">
-                                                                {diffYMDHMS(moment().format('dddd MMM DD YYYY HH:MM:SS'), stry.updatedAt)}
+                                                                {diffYMDHMS(moment().format('YYYY MMM DD HH:MM:SS'), stry.date)}
                                                         </Typography>
                                                     }
                                                     />
@@ -377,7 +384,6 @@ const Feed = () => {
                                                 <h5 className="card-title fs-6 mb-0">Suggestions for you</h5>
                                                 <Link className="link-light fs-6 link-underline-opacity-0">See All</Link>
                                             </div>
-
 
                                             <div className="card-body p-0">
 
