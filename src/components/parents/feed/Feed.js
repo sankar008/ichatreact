@@ -19,6 +19,7 @@ import { FaRegStar, FaStar } from 'react-icons/fa';
 import { Masonry } from '@mui/lab';
 import styled from '@emotion/styled';
 import { Card } from 'react-bootstrap';
+import moment from 'moment';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -42,6 +43,42 @@ const Feed = () => {
         document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
         autoResize();
     },[]);
+
+
+    const diffYMDHMS=(date1, date2)=>{
+        var date1 = moment(date1);
+        var date2 = moment(date2);
+        let years = date1.diff(date2, 'year');
+        date2.add(years, 'years');
+    
+        let months = date1.diff(date2, 'months');
+        date2.add(months, 'months');
+    
+        let days = date1.diff(date2, 'days');
+        date2.add(days, 'days');
+    
+        let hours = date1.diff(date2, 'hours');
+        date2.add(hours, 'hours');
+    
+        let minutes = date1.diff(date2, 'minutes');
+        date2.add(minutes, 'minutes');
+    
+        let seconds = date1.diff(date2, 'seconds');   
+    
+        if(years){
+            return years+ " years ago";
+        }else if(months){
+            return months+ " months ago";
+        }else if(days){
+            return days+ " days ago";
+        }else if(hours){
+            return hours+ " hours ago";
+        }else if(minutes){
+            return minutes+ " minutes ago";
+        }else if(seconds){
+            return seconds+ " seconds ago";
+        }
+    }
 
 
     const getSuggestFriend = async () => {
@@ -167,6 +204,22 @@ const Feed = () => {
       }
     }
 
+    const likePost = async (postCode) => {
+      
+
+        const header = localStorage.getItem("__tokenCode");  
+        const userCode = localStorage.getItem("__userId");   
+        
+        const url = c.POST+'/like/'+userCode+"/"+postCode;
+       
+        const res = await axios.get(url, {
+            headers: JSON.parse(header),
+        });
+
+        console.log(res);
+
+    }
+
      
 
   
@@ -195,8 +248,7 @@ const Feed = () => {
                         <div className="row">
                             <div className="col-12 ss">
                             <Masonry className="feedHolder" columns={3} spacing={4}>
-                            { allPost.map((stry, key) => (     
-                                      
+                            { allPost.map((stry, key) => (    
                                 <Item key={key}>
                                     <Card className='text-bg-dark imgtxtboth'>
                                         <Link state={{postCode:stry.postCode}} to= {"/parent/feed-post"}>
@@ -234,30 +286,29 @@ const Feed = () => {
                                             <ListItem 
                                                 className=""
                                                 secondaryAction={
-                                                <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp;<FaStar size="22" /> </Button>
+                                                <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>{stry.likeCount} &nbsp;<FaStar onClick={()=>likePost(stry.postCode)} size="22" color={stry.like.includes(stry.userCode)?'gold':'white'}/> </Button>
                                                 }
                                                 sx={{ px: 0 }}
                                             >
                                             <ListItemAvatar>
-                                                <Avatar src="http://api.ichat.apibag.in/images/post/1690483384915.png" />
+                                                <Avatar src={c.IMG+stry.postBy.image} />
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={
                                                     <Typography className="" color="var(--bs-light-text-emphasis)">
-                                                                Sankar Bera
+                                                                {stry.postBy.firstName+' '+stry.postBy.lastName}
                                                     </Typography>
                                                     }
                                                     secondary={
                                                         <Typography component="span" variant="body2" color="var(--bs-gray-300)">
-                                                                19 hour ago 
+                                                                {diffYMDHMS(moment().format('dddd MMM DD YYYY HH:MM:SS'), stry.updatedAt)}
                                                         </Typography>
                                                     }
                                                     />
                                             </ListItem>
                                         </List>
                                     </Card>
-                                </Item>
-                                
+                                </Item>                                
                             )) }
                             </Masonry>                           
                             </div>

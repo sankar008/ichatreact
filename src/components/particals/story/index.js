@@ -12,6 +12,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { IoMdClose } from 'react-icons/io';
 import axios from "axios";
 import * as c from "../../../api/constant";
+import { toast } from "react-toastify";
 
 
 const darkTheme = createTheme({
@@ -85,8 +86,8 @@ const Fade = React.forwardRef(function Fade(props, ref) {
   });
   
   const initialPostvalue = {
-    details: "",
-    image: ""
+    title: "",
+    media: ""
   };
   
 
@@ -128,6 +129,48 @@ const Index = () => {
       setformData({ ...formData, [name]: value });
     }
 
+    const submitData = async () => {
+      formData.media = imageData;
+      const errormsg = formData.title?formData.media?"":"Image is a reuire field":"Story details is a reuire field";
+      if(errormsg){
+        toast(errormsg, {
+          position: "top-right",
+          autoClose: 5000,
+          type: "error",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+      });
+      }else{
+        const header = localStorage.getItem("__tokenCode"); 
+        formData.userCode = localStorage.getItem("__userId");        
+        
+        const url = c.STORY;
+        var res = await axios.post(url, formData, {
+          headers: JSON.parse(header),
+        });
+
+        if(res.data.success === 1){
+          getStory();
+          setOpen(false);
+          toast("Story updated successfully!!", {
+              position: "top-right",
+              autoClose: 5000,
+              type: "success",
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+          });
+        } 
+      }
+    }
+
     useEffect(() => { 
       getStory(); 
     },[]);
@@ -163,8 +206,7 @@ const Index = () => {
                 <div className="col-md-12 mt-20 image_upld">
 
                  <div className='img_upp'>
-                  <img className='img-fluid post_img' src={imageData} alt="" />
-                    
+                  <img className='img-fluid post_img' src={imageData} alt="" />                    
                     <input
                         type="file"
                         id="imageUpload"
@@ -178,10 +220,10 @@ const Index = () => {
                   </div>                  
                 </div>
                 <div className="col-md-12">
-                  <textarea className="" name="details" id="details" placeholder='Write Your Story' onChange={handalerChanges}></textarea>
+                  <textarea className="" name="title" id="title" placeholder='Write Your Story' onChange={handalerChanges}></textarea>
                 </div>
                 <div className="col-md-12 text-center">
-                  <Button className="mt-4" variant="contained">Submit</Button>
+                  <Button className="mt-4" variant="contained" onClick={submitData}>Submit</Button>
                 </div>
             </form>
           </Box>
@@ -212,9 +254,10 @@ const Index = () => {
               
             {allStory.map((story, index) => {
               return <Story 
-              userName="Samera"
-              storyImg={ usersImg.u1 }
+              userName= {story.user[0].firstName+' '+story.user[0].lastName}
+              storyImg={ c.IMG+'/'+story.media[0].file }
               userStatus="active"
+              key={index}
           />
             })}
             
