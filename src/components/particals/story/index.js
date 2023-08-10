@@ -233,9 +233,9 @@ const Index = () => {
     <div className="d-flex">
         <div className="card border border-2 border-dashed h-150px px-4 px-sm-5 shadow-none d-flex align-items-center justify-content-center text-center" onClick={handleOpen}>
             <div>
-                <a className="stretched-link btn btn-light rounded-circle icon-md" href="#">
+                <span className="stretched-link btn btn-light rounded-circle icon-md">
                     <FaPlus />
-                </a>
+                </span>
                 <h6 className="mt-2 mb-0 small">Add Story</h6>
             </div>
         </div>

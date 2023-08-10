@@ -19,8 +19,7 @@ import SwiperCore, { EffectFade, Autoplay, Pagination, Navigation } from 'swiper
 import 'swiper/scss';
 import 'swiper/scss/pagination';
 import 'swiper/scss/navigation';
-import axios from "axios";
-import * as c from "../../../api/constant";
+
 
 import { MdVerified } from "react-icons/md"
 import { BiVideo } from "react-icons/bi"
@@ -33,7 +32,8 @@ import { FaRegStar, FaStar, FaTimes } from 'react-icons/fa';
 import { Masonry } from '@mui/lab';
 import styled from '@emotion/styled';
 import { Card } from 'react-bootstrap';
-
+import axios from "axios";
+import * as c from "../../../api/constant";
 
 
 
@@ -60,15 +60,27 @@ const FeedPost = () => {
     let [ isFocusPost, setIsFocusPost ] = useState(false);
     let [ suggestFriends, setSuggestfriends ] = useState([]);
     let [ postCode, setPostCode ] = useState(location.state.postCode);
+    let [post, setPost] = useState([]);
+    
+    const getSingelPost = async () => {
+      const header = localStorage.getItem("__tokenCode");  
+      const userCode = localStorage.getItem("__userId");    
+      const url = c.POST+'/'+postCode;
 
+      const res = await axios.get(url, {
+          headers: JSON.parse(header),
+      });
 
-    useEffect(() => {           
+      if(res.data.success == 1){
+        setPost(res.data.data)
+      }
+    }
+
+    useEffect(() => { 
+        getSingelPost();          
         document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
         autoResize();
     }, []);
-
-
-   
     
     function autoResize() {
         document.querySelectorAll('[data-autoresize]').forEach(function (element) {
