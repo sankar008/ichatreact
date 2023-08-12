@@ -17,15 +17,26 @@
 	display: flex !important;
 	flex-wrap: wrap;
     gap: unset !important;
+    justify-content: space-between;
 }
 .change_display_photo li {
-	width: 25%;
+	width: calc(25% - 6px);
 	margin: 0 !important;
 }
-
+.grp_card {
+	position: relative;
+}
+.actionBtns.actionBtnsGRP {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+	text-align: right;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%);
+}
 @media only screen and (max-width: 1024px) {
     .change_display_photo li {
-        width: 50%;
+        width: calc(50% - 6px);
     }
   }
 

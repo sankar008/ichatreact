@@ -30,8 +30,9 @@ const Index = () => {
   return (
     <>
     <div className="row g-3">
-        <div className="col-lg-3 col-md-6">
+        
             {friendList.map((item, key)=>(
+                <div className="col-lg-3 col-md-6">
                 <Card className='text-bg-dark' key={key}>
                   <CardContent>
                       <div className="wrapper">
@@ -68,8 +69,9 @@ const Index = () => {
                       </List>
                   </CardActions>
                 </Card>
+                </div>
             ))}          
-        </div>        
+              
     </div>
     </>
   )

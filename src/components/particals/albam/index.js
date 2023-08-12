@@ -535,7 +535,9 @@ const Index = () => {
                 alt={item.title}
                 loading="lazy"
             />
+            
             <ImageListItemBar
+            className='top_actionbtn'
                 sx={{
                     background:
                     'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +

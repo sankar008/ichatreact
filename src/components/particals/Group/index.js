@@ -5,8 +5,12 @@ import moment from 'moment';
 import './group.scss'
 import * as groupImg from '../../../assets/img/ImgLib.js'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faLayerGroup, faPen } from '@fortawesome/free-solid-svg-icons';
+
 import { FaHeartbeat, FaShare, FaUserAltSlash, FaEllipsisV } from 'react-icons/fa'
-import { AvatarGroup, Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, List, ListItem, Typography, Menu, MenuItem, ImageListItem, Modal, Box, createTheme, ThemeProvider, TextField, FormControlLabel, FormControl, InputLabel, Select } from '@mui/material'
+import { ImageListItemBar,AvatarGroup, Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, List, ListItem, Typography, Menu, MenuItem, ImageListItem, Modal, Box, createTheme, ThemeProvider, TextField, FormControlLabel, FormControl, InputLabel, Select } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import styled from '@emotion/styled'
@@ -297,13 +301,46 @@ const Index = () => {
         {group.map((grp, key)=>{
             return (
             <div className="col-lg-3 col-md-6" key={key}>
-                <Card className='text-bg-dark'>
+                <Card className='text-bg-dark grp_card'>
                     <CardMedia
+                    className='grp_img'
                         component="img"
                         image={ c.IMG+'/'+grp.image }
                         alt="Paella dish"
                         sx={{ height: '10em' }}
                     />
+
+                        
+
+                        {/* Add Line For Temp */}
+                        <div className="actionBtns actionBtnsGRP">
+                            <IconButton
+                                className="text-end"
+                                sx={{ color: 'white' }}
+                                aria-label={`star`}
+                                
+                            >
+                                <FontAwesomeIcon icon={faTrashAlt} height="20px" width="20px" />
+                            </IconButton>
+                            <IconButton
+                                sx={{ color: 'white' }}
+                                aria-label={`star`}
+                                
+                            >
+                                <FontAwesomeIcon icon={faLayerGroup} height="20px" width="20px" />
+                            </IconButton>
+                            <IconButton
+                                sx={{ color: 'white' }}
+                                aria-label={`star`}
+                                
+                            >
+                                <FontAwesomeIcon icon={faPen} height="20px" width="20px" />
+                            </IconButton>
+                        </div>
+                        {/* Add Line For Temp */}
+
+
+
                     <CardHeader                       
                         action={
                         <IconButton 
