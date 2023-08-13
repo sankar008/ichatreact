@@ -4,6 +4,7 @@ import LeftPanel from '../chat/LeftPanel';
 import MessageBox from '../chat/MessageBox';
 import User from '../chat/User';
 import './Chat.scss'
+import WithMessageBox from './WithMessageBox';
 
 
 function ChatView() {
@@ -13,7 +14,7 @@ function ChatView() {
         <div className="right-content d-flex">
             <div className="chat-box">
               <div className="chat-box-top d-flex justify-content-between align-items-center">
-                    <div className="chat-box-left d-flex align-items-center">
+                      <Link href="/" className="chat-box-left d-flex align-items-center">
                         <div className="chat-box-pic">
                             <span><img src={require('../../../assets/img/user1.png')} alt="" /></span>
                         </div>
@@ -21,7 +22,7 @@ function ChatView() {
                             <h6>sharon.</h6>  
                             <p>sharon12_</p>
                         </div>
-                    </div>
+                    </Link>
                     <Link href="/"><img src={require('../../../assets/img/edit-icon.png')} alt="" /></Link>
               </div>
               <div className="chat-box-btm">
@@ -85,7 +86,9 @@ function ChatView() {
                   </ul>
               </div>
             </div>
-            <MessageBox />
+            <WithMessageBox />
+            {/* <MessageBox /> */}
+
         </div>
     </div>
   )
