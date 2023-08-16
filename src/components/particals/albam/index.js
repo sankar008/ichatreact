@@ -142,8 +142,6 @@ const Index = () => {
       if(formData.postCode){
         await removeImage(formData.postCode, imageArray[key])
       }
-
-
       if(imageData.length === 0){
         setImagedata([])
         setImagearray([]);

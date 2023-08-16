@@ -342,21 +342,6 @@ const Index = () => {
 
 
                     <CardHeader                       
-                        action={
-                        <IconButton 
-                            id="demo-positioned-button"
-                            className="btn btn-light" 
-                            aria-label="settings" 
-                            sx={{ color: '#cecece8a' }} 
-                            style={{'--bs-text-opacity': '.4'}}
-                            aria-controls={open ? 'demo-positioned-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}
-                        >
-                        <FaEllipsisV />
-                        </IconButton>
-                        }
                         title={grp.groupName.substring(0,20)}
                         subheader={
                             <>
@@ -366,25 +351,7 @@ const Index = () => {
                             </>
                         }
                     />
-                    <Menu
-                       // id="demo-positioned-menu"
-                        aria-labelledby="demo-positioned-button"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                    >
-                        <MenuItem onClick={handleClose}>{grp.groupName}</MenuItem>
-                        <MenuItem onClick={handleClose}>Exit Group</MenuItem>
-                        <MenuItem onClick={handleClose}>Remove Group</MenuItem>
-                    </Menu>
+              
     
                     <CardContent>
                         <Typography variant="body2">

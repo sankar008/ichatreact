@@ -34,6 +34,7 @@ import styled from '@emotion/styled';
 import { Card } from 'react-bootstrap';
 import axios from "axios";
 import * as c from "../../../api/constant";
+import moment from 'moment';
 
 
 
@@ -55,13 +56,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: '#000',
 }));
 
+const initialvalue = {
+  comment: "",
+};
+
 const FeedPost = () => {
     const location = useLocation()
     let [ isFocusPost, setIsFocusPost ] = useState(false);
     let [ suggestFriends, setSuggestfriends ] = useState([]);
     let [ postCode, setPostCode ] = useState(location.state.postCode);
-    let [post, setPost] = useState([]);
-    
+    let [singlePost, setSinglePost] = useState([]);
+    let [postComment, setPostComment] = useState([]);
+    const [formData, setformData] = React.useState(initialvalue);
+
     const getSingelPost = async () => {
       const header = localStorage.getItem("__tokenCode");  
       const userCode = localStorage.getItem("__userId");    
@@ -71,13 +78,89 @@ const FeedPost = () => {
           headers: JSON.parse(header),
       });
 
-      if(res.data.success == 1){
-        setPost(res.data.data)
+      if(res.data.success == 1){  
+        setSinglePost(res.data.data)
       }
     }
 
+    const getPostComment = async () => {
+      const header = localStorage.getItem("__tokenCode");  
+      const userCode = localStorage.getItem("__userId");    
+      const url = c.COMMENT+'/post/'+postCode;
+      const res = await axios.get(url, {
+        headers: JSON.parse(header),
+      });
+
+      if(res.data.success == 1){  
+        setPostComment(res.data.data)
+      }
+    }
+
+    const handalerChanges = async (e) => {     
+      const { name, value } = e.target;
+      setformData({ ...formData, [name]: value });
+    }
+
+    const createComment = async (commentValue) => {
+      const header = localStorage.getItem("__tokenCode");  
+      const userCode = localStorage.getItem("__userId");    
+      const url = c.COMMENT;
+      const res = await axios.post(url, {userCode: userCode, postCode: postCode, comment: commentValue}, {
+        headers: JSON.parse(header),
+      });
+
+
+      if(res.data.sucess === 1){
+        formData.comment = '';
+        setformData(formData);
+        toast("Comment added successfully!!", {
+          position: "top-right",
+          autoClose: 5000,
+          type: "success",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }); 
+        getPostComment();
+      }else{
+        console.log(res);
+        return false;
+      }
+    }
+
+       
+
     useEffect(() => { 
-        getSingelPost();          
+      getPostComment();      
+
+      const keyDownHandler = event => { 
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const errormsg = formData.comment?"Please enter your comment":"";
+          if(errormsg){
+            toast(errormsg, {
+              position: "top-right",
+              autoClose: 5000,
+              type: "error",
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+          });
+          }else{
+            createComment(event.target.value);
+          }
+
+        }
+      }
+
+      document.addEventListener('keydown', keyDownHandler);
+        getSingelPost();    
         document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
         autoResize();
     }, []);
@@ -94,6 +177,7 @@ const FeedPost = () => {
     const focusPost = () => {
         setIsFocusPost(true)
     };
+
     useEffect(() => {
         const skipPost = (event) => {
             if (event.key === 'Escape') {
@@ -123,8 +207,43 @@ const FeedPost = () => {
         setChecked(newChecked);
     };
 
+    const diffYMDHMS=(date1, date2)=>{
+      var date1 = moment(date1);
+      var date2 = moment(date2);
+      let years = date1.diff(date2, 'year');
+      date2.add(years, 'years');
   
-    
+      let months = date1.diff(date2, 'months');
+      date2.add(months, 'months');
+  
+      let days = date1.diff(date2, 'days');
+      date2.add(days, 'days');
+  
+      let hours = date1.diff(date2, 'hours');
+      date2.add(hours, 'hours');
+  
+      let minutes = date1.diff(date2, 'minutes');
+      date2.add(minutes, 'minutes');
+  
+      let seconds = date1.diff(date2, 'seconds');   
+  
+      
+      if(years){
+          return years+ " years ago";
+      }else if(months){
+          return months+ " months ago";
+      }else if(days){
+          return days+ " days ago";
+      }else if(hours){
+          return hours+ " hours ago";
+      }else if(minutes){
+          return minutes+ " minutes ago";
+      }else if(seconds){
+          return seconds+ " seconds ago";
+      }
+  }
+
+
   return (
     JSON.parse(localStorage.getItem("isLoginCheck"))?
     <>
@@ -148,94 +267,11 @@ const FeedPost = () => {
                                     <div className="col-12">
                                         <div className="card bg-transparent border-0" style={{'--bs-card-bg': 'transparent !important'}}>
 
-                                            <div className="card-header bg-transparent px-0 d-flex align-items-center justify-content-between">
-                                                <h5 className="card-title fs-6 mb-0">Suggestions for you</h5>
-                                                <Link className="link-light fs-6 link-underline-opacity-0">See All</Link>
-                                            </div>
-
-
-                                            <div className="card-body p-0">
-
-                                                {/* <List
-                                                    className="suggListUser"
-                                                    sx={{
-                                                        width: '100%',
-                                                        // maxWidth: 360,
-                                                        bgcolor: 'transparent',
-                                                        border: 'none',
-                                                        borderColor: 'primary.main',
-                                                        borderRadius: 1
-                                                    }}
-                                                    >
-                                                    {
-                                                        suggestFriends.map((friends, key)=>{
-                                                            return (
-                                                                <ListItem className="px-0"
-                                                                secondaryAction={
-                                                                    <Button onClick={() => sendFriedRequest(friends.userCode)} variant="text" edge="end" sx={{textTransform: 'capitalize'}}>Follow</Button>
-                                                                }
-                                                                key={key}
-                                                            >
-                                                                <ListItemAvatar>
-                                                                    <Avatar src={ imgFeed.userDefault } />
-                                                                </ListItemAvatar>
-                                                                <ListItemText
-                                                                    primary={
-                                                                        <Typography className="" color="var(--bs-light-text-emphasis)">
-                                                                            {friends.firstName+' '+friends.lastName}
-                                                                        </Typography>
-                                                                    }
-                                                                    secondary={
-                                                                        <Typography component="span" variant="body2" color="var(--bs-gray-300)">
-                                                                        Follows you
-                                                                        </Typography>
-                                                                    }
-                                                                />
-                                                            </ListItem>
-                                                            )
-                                                        })
-                                                    }
-                                                
-                                                </List> */}
+                                          
+                                            <div className="card-body p-0">                                   
                                             </div>
                                         </div>
                                     </div>
-
-                                    
-                                    {/* <div className="col-12">
-                                        <ul className="nav small mt-4 lh-1 footer-quick-link">
-                                            <li className="nav-item">
-                                                <Link className="nav-link" to="#">About</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link className="nav-link" to="#">Help</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link className="nav-link" to="#">Press</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link className="nav-link" target="_blank" to="#">API</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link className="nav-link" target="_blank" to="#">Jobs</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link className="nav-link" to="#">Privacy</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link className="nav-link" to="#">Terms</Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link className="nav-link" to="#">Locations</Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    
-
-
-                                    <p className="small mt-2">© 2023 <Link className="text-body" target="_blank" to="#"> iCHAT </Link>
-                                    </p> */}
-
                                 </div>
                             </div>
                         </div>
@@ -250,46 +286,54 @@ const FeedPost = () => {
                                 <div className="col-md-7">
                                   <CardMedia
                                       component="img"
-                                      // image="https://raw.githubusercontent.com/ramonszo/assets/master/zuck.js/stories/1.jpg"
-                                      image={ feedPost.i1 }
+                                      image={singlePost.image?c.IMG+singlePost.image[0]:''}
                                       alt=""
                                       sx={{ borderRadius: '40px 40px 0 40px' }}
                                   />
                                 </div>
                                 <div className="col-md-5">
                                   <Card className='text-bg-dark h-100 d-flex flex-column'>
-                                    <List
+                                    {
+                                      postComment.map((comments, index) => {
+                                        return (<List
                                         className="suggListUser"
+                                        key={index}
                                         sx={{
                                             width: '100%',
-                                            // maxWidth: 360,
                                             bgcolor: 'transparent',
                                             border: 'none',
                                             borderColor: 'primary.main',
                                             borderRadius: 1,
                                         }}
-                                    >
-                                        <ListItem 
-                                            className=""
-                                            sx={{  }}
-                                        >
-                                            <ListItemAvatar>
-                                                <Avatar src="" />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    <Typography className="" color="var(--bs-light-text-emphasis)">
-                                                        sdfsdf
-                                                    </Typography>
-                                                }
-                                                secondary={
-                                                    <Typography component="span" variant="body2" color="var(--bs-gray-300)">
-                                                        19 hour ago 
-                                                    </Typography>
-                                                }
-                                            />
-                                        </ListItem>
-                                    </List>
+                                    >                                    
+
+                                     
+                                          <ListItem 
+                                          className=""
+                                          sx={{  }}
+                                          >
+                                              <ListItemAvatar>
+                                                  <Avatar src={c.IMG+comments.commentBy.image} />
+                                              </ListItemAvatar>
+                                              <ListItemText
+                                                  primary={
+                                                      <Typography className="" color="var(--bs-light-text-emphasis)">
+                                                          {comments.comment}
+                                                      </Typography>
+                                                  }
+                                                  secondary={
+                                                      <Typography component="span" variant="body2" color="var(--bs-gray-300)">
+                                                        {/* {diffYMDHMS(moment().format('YYYY MMM DD HH:MM:SS'), comments.date)} */}
+                                                        {comments.commentBy.firstName +' '+comments.commentBy.lastName}
+                                                      </Typography>
+                                                  }
+                                              />
+                                          </ListItem>                                                                           
+                                    </List>)
+                                      })
+                                    }
+                                                                     
+
                                     <Box sx={{ mt: 'auto' }}>
                                       <List
                                           className="suggListUser"
@@ -305,17 +349,20 @@ const FeedPost = () => {
                                       >
                                           <ListItem 
                                               className=""
-                                              secondaryAction={
-                                                <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp; <FaStar size="22" /></Button>
-                                              }
+                                              // secondaryAction={
+                                              //   <Button  variant="text" edge="end" sx={{textTransform: 'capitalize', color: '#fff', fontSize: '1.2em'}}>4.2k &nbsp; <FaStar size="22" /></Button>
+                                              // }
                                               sx={{  }}
                                           >
-                                            <Typography>16 comments</Typography>
+                                            <Typography>{postComment.length >0?postComment.length+ ' comments':''} </Typography>
                                           </ListItem>
                                           <ListItem>
                                             <FormControl fullWidth sx={{ mt: 1, border: 'none', background: '#f8f8f81a', borderRadius: '50px' }}>
                                               <OutlinedInput
-                                                id="outlined-adornment-amount"
+                                                id="comment"
+                                                name="comment"
+                                                onChange={handalerChanges}
+                                                value={formData.comment}
                                                 startAdornment={ <Avatar sx={{ mr: 2, height: '1.5em', width: '1.5em' }} /> }
                                                 placeholder="Add a comment..."
                                                 sx={{ color: '#f3f3f3' }}
