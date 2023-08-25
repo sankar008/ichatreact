@@ -2,6 +2,8 @@ export const CURRENCY = "$";
 export const IMG = "http://api.ichat.apibag.in/";
 export const URL = "http://api.ichat.apibag.in:3020/v1";
 
+export const SOCKET_URL = "http://api.ichat.apibag.in:3020"
+
 export const SIGNUP = `${URL}/user`;
 export const USER = `${URL}/user`;
 export const CHECKEMAILID = `${URL}/user/email/duplicate/checking`;

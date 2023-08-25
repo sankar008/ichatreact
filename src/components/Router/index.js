@@ -29,6 +29,7 @@ const BasicRoutes = () => {
           <Route exact path="/parent/signup" element={<SignupParent />} />
           <Route exact path="/parent/login" element={<LoginParent />} />
           <Route exact path="/parent/forgot-password" element={<ParentsForgotPassword />} />
+          <Route exact path="/parent/chat" element={<ChatView />} />
 
           <Route exact path="/kids/signup" element={<SignupChild />} />
           <Route exact path="/kids/login" element={<LoginChild />} />
@@ -39,7 +40,6 @@ const BasicRoutes = () => {
           <Route exact path="/parent/feed-post" element={<ParentFeedPost />} />
           <Route exact path="/kids/feed" element={<KidsFeed />} />
           <Route path="*" element={<Page404 />} />
-          <Route exact path="/chat" element={<ChatView />} />
         </Routes>     
     </Router>
   );
