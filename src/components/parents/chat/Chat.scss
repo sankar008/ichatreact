@@ -328,14 +328,20 @@ body {
       list-style-type: none;
       margin-bottom: 41px;
       text-align: right;
-      &:nth-child(2n) {
-        text-align: left;
-      }
-      &:last-child {
-        margin-bottom: 0;
-      }
+      // &:nth-child(2n) {
+      //   text-align: left;
+      // }
+      // &:last-child {
+      //   margin-bottom: 0;
+      // }
     }
   }
+}
+.with-message-box ul li.frnd_msgs .chat-txt span {
+	text-align: left;
+}
+.with-message-box ul li.frnd_msgs {
+	text-align: left;
 }
 .left-chat {
   display: inline-block;

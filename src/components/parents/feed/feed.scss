@@ -2208,3 +2208,73 @@ main {
     position: absolute;
   }
 }
+
+
+
+.css-lyw6b7-MuiListItem-root {
+	max-width: max-content;
+	padding: 10px 15px !important;
+}
+.feedpost_txt {
+	margin-top: 20px;
+	padding: 25px 35px;
+	background-color: #fff;
+	color: #000;
+	border-radius: 0px 40px 0 40px;
+}
+.commend_scroll {
+	padding: 0px 10px;
+	max-height: 500px;
+	overflow-y: scroll;
+	margin: 20px 0;
+}
+.send_commed {
+	display: block;
+	border: 0;
+	position: absolute;
+	right: 0px;
+	height: 56px;
+	width: 56px;
+	border-radius: 56px;
+	font-size: 26px;
+	padding: 0;
+}
+#comment {
+	padding-right: 65px;
+}
+
+.singe_sliderottr .slick-slider {
+	position: relative;
+}
+
+.singe_sliderottr .slick-slider .slick-arrow{
+  z-index: 99;
+ 
+}
+.singe_sliderottr .slick-slider .slick-prev{
+  left: 10px !important;
+}
+.singe_sliderottr .slick-slider .slick-next{
+  right: 10px !important;
+}
+.singe_sliderottr .slick-slider .slick-prev::before{
+  opacity: 1 !important;
+  color: #000;
+   font-size: 25px;
+}
+.singe_sliderottr .slick-slider .slick-next::before{
+  opacity: 1 !important;
+  color: #000 !important;
+   font-size: 25px;
+}
+.singe_sliderottr .slick-slider .slick-prev.slick-disabled::before{
+  opacity: 0.5 !important;
+  color: #444444 !important;
+}
+.singe_sliderottr .slick-slider .slick-next.slick-disabled::before{
+  opacity: 0.5 !important;
+  color: #444444 !important;
+}
+
+
+
