@@ -113,15 +113,15 @@ function WithMessageBox(props) {
         </div>
         <ul>
 
-        {/* {
+        {
                 userMessage.map((message, index) =>{
                     return (
-                    message.sendBy == localStorage.getItem("__userId")? <li>
+                    message.sendBy == localStorage.getItem("__userId")? <li className='my_msgs'>
                      <div className="right-chat">
                         <p>Hey, what’s up?</p>
                         <span>09:25 AM</span>
                     </div>
-                    </li>: <li>
+                    </li>: <li className='frnd_msgs'>
                     <div className="left-chat">
                         <div className="chat-innr">
                             <div className="chat-img">
@@ -136,8 +136,8 @@ function WithMessageBox(props) {
                     </div>
                     </li>);
                 })
-            } */}
-            <li>
+            }
+            {/* <li>
                 <RightChat />
             </li>
             <li>
@@ -145,7 +145,7 @@ function WithMessageBox(props) {
             </li>         
              <li>
                 <AudioChat />
-            </li>
+            </li> */}
         </ul>
         <div className="write-message">
             <div  className="attach-file">
