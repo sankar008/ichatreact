@@ -141,6 +141,27 @@ function WithMessageBox(props) {
                 <RightChat />
             </li>
             <li>
+                <RightChat />
+            </li>
+            <li>
+                <RightChat />
+            </li>
+            <li>
+                <RightChat />
+            </li>
+            <li>
+                <RightChat />
+            </li>
+            <li>
+                <LeftChat />
+            </li> 
+            <li>
+                <LeftChat />
+            </li> 
+            <li>
+                <LeftChat />
+            </li> 
+            <li>
                 <LeftChat />
             </li>         
              <li>
