@@ -22,7 +22,7 @@ import 'swiper/scss/navigation';
 
 
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { MdVerified } from "react-icons/md"
@@ -40,22 +40,9 @@ import axios from "axios";
 import * as c from "../../../api/constant";
 import moment from 'moment';
 
-
-
-/* ====*** Design Support ***==== *//*
-
-https://mui.com/material-ui/react-skeleton/#animations
-https://mui.com/material-ui/react-progress/
-
-*//* ====*** Design Support ***==== */
-
-
 const heights = [150, 30, 90, 70, 110, 150, 130, 80, 50, 90, 100, 150, 30, 50, 80];
 
 const Item = styled(Paper)(({ theme }) => ({
-  //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  //   ...theme.typography.body2,
-  //   padding: '0.5em',
   textAlign: 'center',
   color: '#000',
 }));
@@ -83,6 +70,7 @@ const FeedPost = () => {
     });
 
     if (res.data.success == 1) {
+
       setSinglePost(res.data.data)
     }
   }
@@ -139,6 +127,7 @@ const FeedPost = () => {
 
   useEffect(() => {
     getPostComment();
+    getSingelPost();
 
     const keyDownHandler = event => {
       if (event.key === 'Enter') {
@@ -164,7 +153,6 @@ const FeedPost = () => {
     }
 
     document.addEventListener('keydown', keyDownHandler);
-    getSingelPost();
     document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', 'dark');
     autoResize();
   }, []);
@@ -302,60 +290,31 @@ const FeedPost = () => {
                     <div className="row">
                       <div className="col-md-7" >
                         <div className='feed_post'>
-                          <div className='feedpost_img'>
-
-
-
-                            {/* Use For When Image Length one */}
-                            {/* <CardMedia
-                              component="img"
-                              image={singlePost.image ? c.IMG + singlePost.image[0] : ''}
-                              alt=""
-                              sx={{ borderRadius: '40px 40px 0 40px' }}
-                            /> */}
-
-
-
-                            {/* Use For When Image Length > 1 */}
+                          <div className='feedpost_img'>                           
                             <div className='singe_sliderottr'>
-                              {
-                                <Slider {...single_slider}>
+                              <Slider {...single_slider}>
+                                <div className="img_slider">
+                                  <CardMedia
+                                    component="img"
+                                    image={singlePost.image ? c.IMG + singlePost.image[0] : ''}
+                                    alt=""
+                                    sx={{ borderRadius: '40px 40px 0 40px' }}
+                                  />
+                                </div>
 
-                                  <div className="img_slider">
-                                    <CardMedia
-                                      component="img"
-                                      image={singlePost.image ? c.IMG + singlePost.image[0] : ''}
-                                      alt=""
-                                      sx={{ borderRadius: '40px 40px 0 40px' }}
-                                    />
-                                  </div>
-                                  <div className="img_slider">
-                                    <CardMedia
-                                      component="img"
-                                      image={singlePost.image ? c.IMG + singlePost.image[0] : ''}
-                                      alt=""
-                                      sx={{ borderRadius: '40px 40px 0 40px' }}
-                                    />
-                                  </div>
-                                  <div className="img_slider">
-                                    <CardMedia
-                                      component="img"
-                                      image={singlePost.image ? c.IMG + singlePost.image[0] : ''}
-                                      alt=""
-                                      sx={{ borderRadius: '40px 40px 0 40px' }}
-                                    />
-                                  </div>
-                                </Slider>
-
-                              } </div>
-
-
-
-
-
+                                <div className="img_slider">
+                                  <CardMedia
+                                    component="img"
+                                    image={singlePost.image ? c.IMG + singlePost.image[0] : ''}
+                                    alt=""
+                                    sx={{ borderRadius: '40px 40px 0 40px' }}
+                                  />
+                                </div>
+                              </Slider>
+                            </div>
                           </div>
                           <div className='feedpost_txt'>
-                            <Typography variant="h7">Mia Khalifa is a Lebanese-American media personality, writer and former pornographic film actress and webcam model. She </Typography>
+                            <Typography variant="h7">{singlePost.details}</Typography>
                           </div>
                         </div>
 
@@ -438,7 +397,7 @@ const FeedPost = () => {
                                     placeholder="Add a comment..."
                                     sx={{ color: '#f3f3f3' }}
                                   />
-                                  <button class="send_commed" tabindex="0" type="button"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M232,127.89a16,16,0,0,1-8.18,14L55.91,237.9A16.14,16.14,0,0,1,48,240a16,16,0,0,1-15.05-21.34L60.3,138.71A4,4,0,0,1,64.09,136H136a8,8,0,0,0,8-8.53,8.19,8.19,0,0,0-8.26-7.47H64.16a4,4,0,0,1-3.79-2.7l-27.44-80A16,16,0,0,1,55.85,18.07l168,95.89A16,16,0,0,1,232,127.89Z"></path></svg><span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button>
+                                  <button className="send_commed" tabIndex="0" type="button"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 256 256" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M232,127.89a16,16,0,0,1-8.18,14L55.91,237.9A16.14,16.14,0,0,1,48,240a16,16,0,0,1-15.05-21.34L60.3,138.71A4,4,0,0,1,64.09,136H136a8,8,0,0,0,8-8.53,8.19,8.19,0,0,0-8.26-7.47H64.16a4,4,0,0,1-3.79-2.7l-27.44-80A16,16,0,0,1,55.85,18.07l168,95.89A16,16,0,0,1,232,127.89Z"></path></svg><span className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button>
                                 </FormControl>
                               </ListItem>
                             </List>
