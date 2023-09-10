@@ -175,9 +175,6 @@ export default function Profile() {
     }  
   }
 
-
-
-
   const imageHandelar = async (e) => {
     const file = e.target.files[0]; 
     if(file){
@@ -299,6 +296,7 @@ export default function Profile() {
                 <h1 className="userName">{userDetails.firstName+' '+userDetails.lastName}</h1>
                 <div className="chat">
                   <p className="m-0 me-2"><small>Leave a message</small></p>
+                  <Link className='btn btn-theme btn-outline-light me-4 py-2' to="/parent/feed">Feed</Link>
                   <Link className='btn btn-theme btn-outline-light me-4 py-2'>Chat</Link>
                   <Link className='btn btn-theme btn-outline-light py-2' to="/account-type"> Logout <AiOutlineLogout className="me-n1"/></Link>
                 </div>

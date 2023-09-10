@@ -104,7 +104,7 @@ const Index = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="" >
+                                    <Link className="nav-link" to="/parent/chat" >
                                         <BsMessenger className="navIcon" size="1.45em" />
                                         <span>Messages </span>
                                     </Link>
